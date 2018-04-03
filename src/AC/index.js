@@ -13,12 +13,12 @@ export function deleteArticle(id) {
     }
 }
 
-// export function filters(articles) {
-//     return {
-//         type: SELECT,
-//         payload:{articles}
-//     }
-// }
+export function filters(articles) {
+    return {
+        type: SELECT,
+        payload:{articles}
+    }
+}
 
 export function select(selection) {
     return {
