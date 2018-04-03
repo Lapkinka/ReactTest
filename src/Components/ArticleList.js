@@ -1,7 +1,8 @@
-import React, {Component} from 'react'
+import React,{Component} from 'react'
 import Article from './Article/index'
 import PropTypes from 'prop-types'
 import accordion from "../Decorators/accordion";
+// import {filters} from '../AC'
 import {connect} from 'react-redux'
 
 // export default function ArticleList({articles}) {
@@ -26,6 +27,7 @@ class ArticleList extends Component{
     // };
     render(){
         const{articles,openElemId,toggleOpenElem} = this.props;
+        // filters(articles);
         const articlesElements = articles.map((elem) =>
             <li key={elem.id}>
             {/*<li key={elem.id} onClick = {toggleOpenElem(elem.id)}>*/}

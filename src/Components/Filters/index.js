@@ -5,16 +5,20 @@ import DataRange from "./DataRange";
 
 class Filters extends Component{
     static propTypes = {
-        articles:PropTypes.array.isRequired
+        // articles:PropTypes.array.isRequired
     };
     render(){
-        const {articles} = this.props;
+        // const {articles} = this.props;
         return(
             <div>
-                <SelectFilter articles={articles}/>
+                <SelectFilter/>
                 <DataRange/>
             </div>
         )
     }
 }
+
+// export default connect(state => ({
+//     articles:state.articles}))(Filters)
+
 export default Filters

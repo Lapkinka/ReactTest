@@ -2,6 +2,9 @@ import React,{Component} from 'react'
 import PropTypes from 'prop-types'
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import './DataRangeStyle.css'
+import {dataRange} from "../../AC";
+import {connect} from 'react-redux'
 
 class DataRange extends Component{
     static propTypes = {
@@ -58,9 +61,12 @@ class DataRange extends Component{
     }
     render() {
         const { from, to, enteredTo } = this.state;
+        const {dataRange} = this.props
+        console.log(this.props,"dataPROPS")
         const modifiers = { start: from, end: enteredTo };
         const disabledDays = { before: this.state.from };
         const selectedDays = [from, { from, to: enteredTo }];
+        dataRange(from,to);
         return (
             <div>
                 <DayPicker
@@ -91,4 +97,5 @@ class DataRange extends Component{
         );
     }
 }
-export default DataRange
+// export default DataRange
+export default connect(null,{dataRange})(DataRange)
