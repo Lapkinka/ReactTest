@@ -31,6 +31,7 @@ class DataRange extends Component{
     }
     handleDayClick(day) {
         const { from, to } = this.state;
+        const {dataRange} = this.props
         if (from && to && day >= from && day <= to) {
             this.handleResetClick();
             return;
@@ -41,11 +42,14 @@ class DataRange extends Component{
                 to: null,
                 enteredTo: null,
             });
-        } else {
+        }
+        else {
             this.setState({
                 to: day,
                 enteredTo: day,
             });
+            dataRange(from,to);
+            console.log(from,to,dataRange)
         }
     }
     handleDayMouseEnter(day) {
@@ -61,12 +65,9 @@ class DataRange extends Component{
     }
     render() {
         const { from, to, enteredTo } = this.state;
-        const {dataRange} = this.props
-        console.log(this.props,"dataPROPS")
         const modifiers = { start: from, end: enteredTo };
         const disabledDays = { before: this.state.from };
         const selectedDays = [from, { from, to: enteredTo }];
-        dataRange(from,to);
         return (
             <div>
                 <DayPicker

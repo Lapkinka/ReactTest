@@ -14,13 +14,13 @@ class SelectFilter extends Component{
         selection : null
     };
     render(){
-        const {select,articles} = this.props;
+        const {articles} = this.props;
         const options = articles.map(article => ({
             label:article.title,
             value:article.id
         }));
-        console.log(this.props,"selectPROPS")
-        select(this.state.selection)
+        // console.log(this.props,"selectPROPS")
+        // select(this.state.selection)
         return(
             <div>
                 <Select options = {options} value = {this.state.selection} onChange = {this.changeSelection} multi/>
@@ -28,7 +28,10 @@ class SelectFilter extends Component{
         )
     }
     changeSelection = selection => {
+        const {select} = this.props;
         this.setState({selection})
+        select(selection)
+        // console.log("selection",selection)
     }
 }
 export default connect(state => ({
