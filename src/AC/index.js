@@ -13,13 +13,6 @@ export function deleteArticle(id) {
     }
 }
 
-export function filters(articles) {
-    return {
-        type: SELECT,
-        payload:{articles}
-    }
-}
-
 export function select(selection) {
     return {
         type: SELECT,
@@ -27,9 +20,9 @@ export function select(selection) {
     }
 }
 
-export function dataRange(from,to) {
+export function dataRange(dataRange) {
     return {
         type: DATARANGE,
-        payload:{from,to}
+        payload:{dataRange}
     }
 }

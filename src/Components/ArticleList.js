@@ -51,7 +51,31 @@ class ArticleList extends Component{
 
 // export default accordion(ArticleList)
 
-export default connect(state =>({
-    articles:state.articles}))(accordion(ArticleList))
+// export default connect(state =>({
+//     articles:state.articles}))(accordion(ArticleList))
+
+export default connect(({filters,articles}) => {
+    // console.log("articles in connect",articles)
+    const{selection,dataRange:{from,to}} = filters
+
+    const filterArticles = articles.filter(elem =>{
+        // console.log("elem.date",elem.date)
+        let stateDate = Date.parse(elem.date)
+        // console.log("stateDate",stateDate)
+        // console.log("(!selection.length || selection.includes(elem.id))",(!selection.length || selection.includes(elem.id)))
+        // console.log("(!from || !to || (stateDate > from && stateDate < to))",(!from || !to || (stateDate > from && stateDate < to)))
+        console.log("!selection.length",!selection.length)
+        console.log("selection.includes(elem.id)",selection.includes(elem.id))
+        console.log("!from",!from)
+        console.log("!to",!to)
+        console.log("(stateDate > from && stateDate < to)",(stateDate > from && stateDate < to))
+        return (!selection.length || selection.includes(elem.id)) &&
+            (!from || !to || (stateDate > from && stateDate < to))
+    })
+    // console.log("filterArctiles in connect",filterArticles)
+    return{
+        articles:filterArticles
+    }
+})(accordion(ArticleList))
 
 // export default connect(({articles}) =>({articles}))(accordion(ArticleList))

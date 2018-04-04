@@ -10,26 +10,25 @@ class SelectFilter extends Component{
     static propTypes = {
         articles:PropTypes.array.isRequired
     };
-    state = {
-        selection : null
-    };
     render(){
-        const {select,articles} = this.props;
+        const {articles,selectLabel} = this.props;
         const options = articles.map(article => ({
             label:article.title,
             value:article.id
         }));
-        console.log(this.props,"selectPROPS")
-        select(this.state.selection)
         return(
             <div>
-                <Select options = {options} value = {this.state.selection} onChange = {this.changeSelection} multi/>
+                <Select options = {options} value = {selectLabel} onChange = {this.changeSelection} multi/>
             </div>
         )
     }
-    changeSelection = selection => {
-        this.setState({selection})
+    changeSelection = selectLabel => {
+        const {select} = this.props
+        select(selectLabel.map(elem => elem.value))
+        // почему только value
     }
 }
 export default connect(state => ({
-    articles:state.articles}),{select})(SelectFilter)
+    articles:state.articles,
+    selectLabel:state.filters.selection
+}),{select})(SelectFilter)

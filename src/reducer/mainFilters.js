@@ -1,19 +1,20 @@
-import {articles as defaultArticles} from '../fixtures'
-import {MAINFILTER} from '../constants'
-// import dataRangeReducer from './filters/dataRange'
-// import selectReducer from './filters/select'
+import {DATARANGE, DELETE_ARTICLE, SELECT} from '../constants'
 
-
-export default (articlesState = defaultArticles,action) =>{
-    // const label = selectReducer
-    // const date = dataRangeReducer
-    const {type,payload} = action;
-    // console.log("label:",label)
-    // console.log("date:",date)
-    // console.log("payload:",payload)
-    switch (type){
-        case MAINFILTER :return articlesState
+const defaultFilters = {
+    selection:[],
+    dataRange :{
+        from:null,
+        to:null
     }
+}
 
-    return articlesState
+export default (filters = defaultFilters,action) =>{
+    const {type,payload} = action;
+    console.log(" action in mainFilters:", action)
+    switch (type){
+        case DATARANGE : return Object.assign({},filters,{dataRange:payload.dataRange})
+        case SELECT  : return Object.assign({},filters,{selection:payload.selection})
+        case DELETE_ARTICLE : return Object.assign({},filters,{selection:payload.selection.filter(article => article.id !== payload.id)})
+    }
+    return filters
 }
