@@ -40,7 +40,7 @@ class CommentsList extends Component{
             else{
                 return(
                     <section>
-                        {comments.map(elem => <Comments key = {elem.id}  comments = {elem}/>)}
+                        {comments.map(elem => <Comments key = {elem}  id = {elem}/>)}
                         <CommentForm/>
                     </section>
                 )

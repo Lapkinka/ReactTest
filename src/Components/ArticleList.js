@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import accordion from "../Decorators/accordion";
 // import {filters} from '../AC'
 import {connect} from 'react-redux'
+import {filtrationArticlesSelector} from '../selectors/index'
 
 // export default function ArticleList({articles}) {
 //     const articlesElements = articles.map((elem) => <li key={elem.id}><Article article = {elem}/></li>);
@@ -26,6 +27,7 @@ class ArticleList extends Component{
     //     openArticleId : null
     // };
     render(){
+        console.log("artlist")
         const{articles,openElemId,toggleOpenElem} = this.props;
         // filters(articles);
         const articlesElements = articles.map((elem) =>
@@ -54,28 +56,7 @@ class ArticleList extends Component{
 // export default connect(state =>({
 //     articles:state.articles}))(accordion(ArticleList))
 
-export default connect(({filters,articles}) => {
-    // console.log("articles in connect",articles)
-    const{selection,dataRange:{from,to}} = filters
-
-    const filterArticles = articles.filter(elem =>{
-        // console.log("elem.date",elem.date)
-        let stateDate = Date.parse(elem.date)
-        // console.log("stateDate",stateDate)
-        // console.log("(!selection.length || selection.includes(elem.id))",(!selection.length || selection.includes(elem.id)))
-        // console.log("(!from || !to || (stateDate > from && stateDate < to))",(!from || !to || (stateDate > from && stateDate < to)))
-        console.log("!selection.length",!selection.length)
-        console.log("selection.includes(elem.id)",selection.includes(elem.id))
-        console.log("!from",!from)
-        console.log("!to",!to)
-        console.log("(stateDate > from && stateDate < to)",(stateDate > from && stateDate < to))
-        return (!selection.length || selection.includes(elem.id)) &&
-            (!from || !to || (stateDate > from && stateDate < to))
-    })
-    // console.log("filterArctiles in connect",filterArticles)
-    return{
-        articles:filterArticles
-    }
-})(accordion(ArticleList))
+export default connect(state => ({articles:filtrationArticlesSelector(state)}))
+(accordion(ArticleList))
 
 // export default connect(({articles}) =>({articles}))(accordion(ArticleList))
