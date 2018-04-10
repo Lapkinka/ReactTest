@@ -1,5 +1,7 @@
 import React,{Component} from 'react'
+import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
+import {addComment} from '../../AC/index'
 import './style.css'
 
 class CommentForm extends Component{
@@ -20,9 +22,17 @@ class CommentForm extends Component{
                 Comment:<input className={this.getClassName('comment')}
                                value = {this.state.comment}
                                onChange={this.handleChange('comment')}/>
+                {/*<button onClick={this.handleAdd} >add Comment</button>*/}
                 <button>add Comment</button>
             </div>
         )
+    }
+    handleAdd = () =>{
+        // const {addComment} = this.props
+        // addComment({
+        //   user:state.userName,
+        //   text:state.comment
+        // })
     }
     handleChange = type => ev =>{
         const {value} = ev.target;
@@ -43,4 +53,5 @@ const constraints = {
     }
 };
 
-export default CommentForm
+// export default CommentForm
+export default connect(state => ({}),{addComment})(CommentForm)

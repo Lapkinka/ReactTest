@@ -1,4 +1,4 @@
-import {DELETE_ARTICLE,INCREMENT,SELECT,DATARANGE} from '../constants'
+import {DELETE_ARTICLE,INCREMENT,SELECT,DATARANGE,ADD_COMMENT} from '../constants'
 
 export function increment() {
     return {
@@ -24,5 +24,12 @@ export function dataRange(dataRange) {
     return {
         type: DATARANGE,
         payload:{dataRange}
+    }
+}
+
+export function addComment(comment) {
+    return {
+        type: ADD_COMMENT,
+        payload:{comment}
     }
 }
