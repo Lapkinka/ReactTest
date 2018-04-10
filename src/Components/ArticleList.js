@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import accordion from "../Decorators/accordion";
 // import {filters} from '../AC'
 import {connect} from 'react-redux'
-import {filtrationArticlesSelector} from '../selectors/index'
+import {filtrationArticlesSelector} from '../selectors/filtrationArticlesSelector'
 
 // export default function ArticleList({articles}) {
 //     const articlesElements = articles.map((elem) => <li key={elem.id}><Article article = {elem}/></li>);

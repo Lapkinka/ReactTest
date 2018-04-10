@@ -5,6 +5,7 @@ import 'react-select/dist/react-select.css';
 import './DataRangeStyle.css'
 import {select} from "../../AC";
 import {connect} from 'react-redux'
+import { mapToArr } from '../../helpers/helpersJs'
 
 class SelectFilter extends Component{
     static propTypes = {
@@ -29,6 +30,6 @@ class SelectFilter extends Component{
     }
 }
 export default connect(state => ({
-    articles:state.articles,
+    articles:mapToArr(state.articles),
     selectLabel:state.filters.selection
 }),{select})(SelectFilter)
