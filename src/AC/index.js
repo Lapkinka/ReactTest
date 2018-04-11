@@ -27,9 +27,10 @@ export function dataRange(dataRange) {
     }
 }
 
-export function addComment(comment) {
+export function addComment(user,text,articleId) {
     return {
         type: ADD_COMMENT,
-        payload:{comment}
+        payload:{user,text,articleId},
+        needRnd:true
     }
 }

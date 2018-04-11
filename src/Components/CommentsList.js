@@ -6,6 +6,7 @@ import CommentForm from "./CommentForm/index";
 
 class CommentsList extends Component{
     static propTypes = {
+        articleId:PropTypes.string.isRequired,
         comments:PropTypes.array.isRequired
     };
     // constructor(props){
@@ -34,14 +35,14 @@ class CommentsList extends Component{
 
     }
     getBody () {
-        const {comments,isOpen} = this.props;
+        const {comments,articleId,isOpen} = this.props;
         if(isOpen){
             if (!comments.length) return(<section>No comments</section>);
             else{
                 return(
                     <section>
                         {comments.map(elem => <Comments key = {elem}  id = {elem}/>)}
-                        <CommentForm/>
+                        <CommentForm id = {articleId}/>
                     </section>
                 )
             }

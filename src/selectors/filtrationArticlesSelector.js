@@ -3,6 +3,7 @@ import {mapToArr} from '../helpers/helpersJs'
 
 const filtersGetter = state => state.filters
 const articlesGetter = state => state.articles
+console.log("state.articles",articlesGetter)
 
 export const filtrationArticlesSelector = createSelector(articlesGetter,filtersGetter,(articles,filters) => {
   const {selection, dataRange: {from, to}} = filters
@@ -10,7 +11,6 @@ export const filtrationArticlesSelector = createSelector(articlesGetter,filtersG
 
   return mapToArr(articles).filter(elem => {
     let stateDate = Date.parse(elem.date)
-
     // console.log("!selection.length",!selection.length)
     // console.log("selection.includes(elem.id)",selection.includes(elem.id))
     // console.log("!from",!from)

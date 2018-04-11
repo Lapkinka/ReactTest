@@ -3,14 +3,11 @@ import {ADD_COMMENT} from '../constants'
 import {arrToMap} from '../helpers/helpersJs'
 
 const commentsMap = arrToMap(defaultComments)
-console.log("commentsMap",commentsMap)
 
 export default (commentsState = commentsMap,action) =>{
-    const {type,payload} = action
-
+    const {type,payload,randomId} = action
     switch(type){
-      // case ADD_COMMENT: return commentsState
-      case ADD_COMMENT: return Object.assign({},commentsState,commentsState[payload.id])
+        case ADD_COMMENT :return {...commentsState,[randomId]:{id:randomId, user:payload.user, text:payload.text}}
     }
 
     return commentsState

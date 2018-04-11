@@ -46,7 +46,9 @@ class Article extends PureComponent{
         // console.log("render",this.state.isOpen);
         // const {article} = this.props;
         console.warn("update article")
+
         const {isOpen,article,toggleOpen} = this.props;
+        // console.warn(article,"article")
         return(
         <section>
             {/*<h3>{this.article.title}</h3>*/}
@@ -83,7 +85,7 @@ class Article extends PureComponent{
                     {/*<CommentsList comments = {this.article.comments}/>  */}
                     {article.text}
                     <button onClick = {() => this.setState({updateIndex:this.state.updateIndex + 1})}>update</button>
-                    <CommentsList comments = {article.comments} ref = {this.setCommentsRef} key = {this.state.updateIndex}/>
+                    <CommentsList articleId = {article.id} comments = {article.comments} ref = {this.setCommentsRef} key = {this.state.updateIndex}/>
                 </section>
             )
         }
