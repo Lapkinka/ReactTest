@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {addComment} from '../../AC/index'
 import './style.css'
+import { lengthValue,wrongInInput } from '../../helpers/helpersJs'
 
 class CommentForm extends Component{
     static PropTypes = {
@@ -22,7 +23,7 @@ class CommentForm extends Component{
                 Comment:<input className={this.getClassName('comment')}
                                value = {this.state.comment}
                                onChange={this.handleChange('comment')}/>
-                <button onClick={this.handleAdd} >add Comment</button>
+                <button className={this.statusButton()} onClick={this.handleAdd} >add Comment</button>
                 {/*<button>add Comment</button>*/}
             </div>
         )
@@ -32,12 +33,13 @@ class CommentForm extends Component{
         addComment(this.state.userName,this.state.comment,id)
         this.setState({userName:'', comment:''})
     }
+    statusButton = () => lengthValue(this.state) ? '' : "disabled"
     handleChange = type => ev =>{
         const {value} = ev.target;
         if(value.length > constraints[type].max) return;
         this.setState({[type]:value})
     };
-    getClassName = type => this.state[type].length && this.state[type].length < constraints[type].min ? "error_input" : '';
+    getClassName = type => wrongInInput(this.state,type) ? "error_input" : '';
 }
 
 const constraints = {
@@ -47,7 +49,7 @@ const constraints = {
     },
     comment:{
         min:5,
-        max:50
+        max:100
     }
 };
 
