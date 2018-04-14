@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {findDOMNode} from 'react-dom'
 import CommentsList from '../CommentsList'
 import {connect} from 'react-redux'
-import {deleteArticle} from '../../AC'
+import {deleteArticle,loadArt} from '../../AC'
 // import toggleOpen from '../Decorators/toggleOpen'
 import {CSSTransitionGroup} from 'react-transition-group'
 import './style.css'
@@ -14,7 +14,8 @@ class Article extends PureComponent{
         article:PropTypes.shape({
             id: PropTypes.string.isRequired,
             title: PropTypes.string.isRequired,
-            text: PropTypes.string.isRequired
+            // text: PropTypes.string.isRequired
+            text: PropTypes.string
         }).isRequired,
         isOpen:PropTypes.bool,
         toggleOpen:PropTypes.func
@@ -23,6 +24,13 @@ class Article extends PureComponent{
     state = {
         updateIndex: 0
     };
+
+    componentWillReceiveProps({isOpen,loadArt,article}){
+        // if(isOpen) loadArt(article.id)
+        // if(!this.props.isOpen && isOpen && !article.text && !article.loading) loadArt(article.id)
+        if(isOpen && !article.text && !article.loading) loadArt(article.id)
+
+    }
     // constructor(props){
     //     super(props);
     //     this.state = {

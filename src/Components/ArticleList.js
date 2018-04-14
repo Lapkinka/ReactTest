@@ -2,9 +2,10 @@ import React,{Component} from 'react'
 import Article from './Article/index'
 import PropTypes from 'prop-types'
 import accordion from "../Decorators/accordion";
-// import {filters} from '../AC'
+import {loadArticles} from '../AC'
 import {connect} from 'react-redux'
 import {filtrationArticlesSelector} from '../selectors/filtrationArticlesSelector'
+import Loader from './Loader/loader'
 
 // export default function ArticleList({articles}) {
 //     const articlesElements = articles.map((elem) => <li key={elem.id}><Article article = {elem}/></li>);
@@ -23,12 +24,17 @@ class ArticleList extends Component{
         openElemId:PropTypes.string,
         toggleOpenElem:PropTypes.func.isRequired
     };
+
+    componentDidMount(){
+        const {loading,loaded,loadArticles} = this.props
+        if (!loading || !loaded) loadArticles()
+    }
     // state = {
     //     openArticleId : null
     // };
     render(){
-        console.log("artlist")
-        const{articles,openElemId,toggleOpenElem} = this.props;
+        const{articles,openElemId,toggleOpenElem,loading} = this.props;
+        if(loading) return <Loader/>
         // filters(articles);
         const articlesElements = articles.map((elem) =>
             <li key={elem.id}>
@@ -56,7 +62,9 @@ class ArticleList extends Component{
 // export default connect(state =>({
 //     articles:state.articles}))(accordion(ArticleList))
 
-export default connect(state => ({articles:filtrationArticlesSelector(state)}))
-(accordion(ArticleList))
+export default connect(state => ({
+    articles:filtrationArticlesSelector(state),
+    loading:state.articles.loading,
+    loaded:state.articles.loaded}),{loadArticles})(accordion(ArticleList))
 
 // export default connect(({articles}) =>({articles}))(accordion(ArticleList))

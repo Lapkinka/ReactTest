@@ -30,6 +30,6 @@ class SelectFilter extends Component{
     }
 }
 export default connect(state => ({
-    articles:mapToArr(state.articles),
+    articles:mapToArr(state.articles.entities),
     selectLabel:state.filters.selection
 }),{select})(SelectFilter)

@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from "react-redux"
 import PropTypes from 'prop-types'
-import comments from "../reducer/comments";
+// import comments from "../reducer/comments";
 import {commentsSelectorFactory} from '../selectors/commentsSelector'
 
 function Comments({comments}) {
@@ -17,7 +17,8 @@ Comments.propTypes = {
     id:PropTypes.string.isRequired,
     //from connect
     comments:PropTypes.shape({
-        text:PropTypes.string.isRequired,
+        // text:PropTypes.string.isRequired,
+        text:PropTypes.string,
         user:PropTypes.string.isRequired
     }).isRequired
 };

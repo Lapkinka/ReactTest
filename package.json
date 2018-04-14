@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "history": "^4.6.3",
-    "immutable": "^3.8.1",
+    "immutable": "^3.8.2",
     "moment": "^2.21.0",
     "prop-types": "^15.6.1",
     "react": "^15.5.0",

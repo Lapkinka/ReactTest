@@ -2,8 +2,7 @@ import {createSelector} from 'reselect'
 import {mapToArr} from '../helpers/helpersJs'
 
 const filtersGetter = state => state.filters
-const articlesGetter = state => state.articles
-console.log("state.articles",articlesGetter)
+const articlesGetter = state => state.articles.entities
 
 export const filtrationArticlesSelector = createSelector(articlesGetter,filtersGetter,(articles,filters) => {
   const {selection, dataRange: {from, to}} = filters

@@ -1,21 +1,59 @@
-import {normalizedArticles as defaultArticles} from '../fixtures'
-import {DELETE_ARTICLE,ADD_COMMENT} from '../constants'
+// import {normalizedArticles as defaultArticles} from '../fixtures'
+import {DELETE_ARTICLE,ADD_COMMENT,LOAD_ARTICLES,START,SUCCESS,FAIL} from '../constants'
 import { arrToMap } from '../helpers/helpersJs'
+import {Map, Record, OrderedMap} from 'immutable'
 
-const articlesMap = arrToMap(defaultArticles)
+const ArticleRecord = Record({
+    text:undefined,
+    title:'',
+    id:undefined,
+    comments:[],
 
-export default (articlesState = articlesMap,action) =>{
-    const {type,payload,randomId} = action;
+})
+// const articlesMap = arrToMap(defaultArticles)
+// const defaultState = new Map({
+//     loading:false,
+//     loaded:false,
+//     entities:new OrderedMap({})
+// })
+
+const ReducerState = new Record({
+    loading:false,
+    loaded:false,
+    entities:new OrderedMap({})
+})
+
+const defaultState = new ReducerState()
+
+// export default (articlesState = articlesMap,action) =>{
+export default (articlesState = defaultState,action) =>{
+    const {type,payload,response,randomId} = action;
     switch(type){
         case DELETE_ARTICLE : {
             // let copy = {...articlesState}
-            delete articlesState[payload.id]
-            return articlesState
+            // delete articlesState[payload.id]
+            // return articlesState
+            // return articlesState.delete(payload.id)
+            return articlesState.deleteIn(['entities',payload.id])
         }
         case ADD_COMMENT : {
-            let changeComments = [...articlesState[payload.articleId].comments]
-            changeComments.push(randomId)
-            return {...articlesState,[payload.articleId]:{...articlesState[payload.articleId],comments:changeComments}}
+            // return articlesState.update(payload.articleId,(article) => article.set())
+            // return articlesState.updateIn([payload.articleId,"comments"],(comments) => comments.concat(randomId))
+            return articlesState.updateIn(['entities',payload.articleId,"comments"],comments => comments.concat(randomId))
+            // let changeComments = [...articlesState[payload.articleId].comments]
+            // changeComments.push(randomId)
+            // return {...articlesState,[payload.articleId]:{...articlesState[payload.articleId],comments:changeComments}}
+        }
+        case LOAD_ARTICLES + START : {
+            // return arrToMap(response,articleRecord)
+            return articlesState.set('loading', true)
+        }
+        case LOAD_ARTICLES + SUCCESS : {
+            // return arrToMap(response,articleRecord)
+            return articlesState
+                .set('entities', arrToMap(response,ArticleRecord))
+                .set('loading', false)
+                .set('loaded', true)
         }
     }
 
