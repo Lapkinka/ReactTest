@@ -4,6 +4,7 @@ import {findDOMNode} from 'react-dom'
 import CommentsList from '../CommentsList'
 import {connect} from 'react-redux'
 import {deleteArticle,loadArt} from '../../AC'
+import Loader from '../Loader/loader'
 // import toggleOpen from '../Decorators/toggleOpen'
 import {CSSTransitionGroup} from 'react-transition-group'
 import './style.css'
@@ -85,7 +86,7 @@ class Article extends PureComponent{
     // }
     getBody () {
         const {isOpen,article} = this.props;
-        // if(this.state.isOpen){
+        if(article.loading) return <Loader/>
         if(isOpen){
             return(
                 <section>
@@ -111,4 +112,4 @@ class Article extends PureComponent{
 
 // export default toggleOpen(Article)
 // export default Article
-export default connect(null,{deleteArticle})(Article)
+export default connect(null,{deleteArticle,loadArt})(Article)

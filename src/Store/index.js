@@ -6,7 +6,7 @@ import api from '../middlewars/api'
 import thunk from 'redux-thunk'
 
 // const enhancer = applyMiddleware(uuid,logger)
-const enhancer = applyMiddleware(uuid,api,logger)
+const enhancer = applyMiddleware(thunk, uuid,api,logger)
 
 const store = createStore(reducer,{},enhancer);
 
