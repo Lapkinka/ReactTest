@@ -12,6 +12,8 @@ export const LOAD_ARTICLES = 'LOAD_ARTICLES'
 
 export const LOAD_ART = 'LOAD_ART'
 
+export const LOAD_COMMENT = 'LOAD_COMMENT'
+
 export const START = '_START'
 
 export const SUCCESS = '_SUCCESS'

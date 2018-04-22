@@ -15,6 +15,7 @@ import {OrderedMap,Map} from 'immutable'
 // export function arrToMap(arr,DataRecord = Map) {
 export function arrToMap(arr,DataRecord = Map) {
   // return arr.reduce((emp,elem) => emp.set(elem.id,new Map({elem})),new Map({}))
+    console.warn("arr in arrToMap",arr)
   return arr.reduce((emp,elem) => emp.set(elem.id,new DataRecord(elem)),new OrderedMap({}))
 }
 
@@ -23,8 +24,8 @@ export function arrToMap(arr,DataRecord = Map) {
 // }
 
 export function mapToArr(object) {
-  console.warn("object",object)
-  console.warn("object.valueSeq().toArray()",object.valueSeq().toArray())
+  console.warn("object map to arr",object)
+  // console.warn("object.valueSeq().toArray()",object.valueSeq().toArray())
   return object.valueSeq().toArray()
 }
 

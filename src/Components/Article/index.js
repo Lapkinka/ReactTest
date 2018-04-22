@@ -94,7 +94,8 @@ class Article extends PureComponent{
                     {/*<CommentsList comments = {this.article.comments}/>  */}
                     {article.text}
                     <button onClick = {() => this.setState({updateIndex:this.state.updateIndex + 1})}>update</button>
-                    <CommentsList articleId = {article.id} comments = {article.comments} ref = {this.setCommentsRef} key = {this.state.updateIndex}/>
+                    {/*<CommentsList articleId = {article.id} comments = {article.comments} ref = {this.setCommentsRef} key = {this.state.updateIndex}/>*/}
+                    <CommentsList article = {article} ref = {this.setCommentsRef} key = {this.state.updateIndex}/>
                 </section>
             )
         }
