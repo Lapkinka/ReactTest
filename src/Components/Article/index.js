@@ -12,24 +12,36 @@ import './style.css'
 class Article extends PureComponent{
     static propTypes = {
         // article:PropTypes.object.isRequired
+        id:PropTypes.string.isRequired,
+        isOpen:PropTypes.bool,
+        toggleOpen:PropTypes.func,
+        //connect
         article:PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
+            // id: PropTypes.string.isRequired,
+            id: PropTypes.string,
+            // title: PropTypes.string.isRequired,
+            title: PropTypes.string,
             // text: PropTypes.string.isRequired
             text: PropTypes.string
-        }).isRequired,
-        isOpen:PropTypes.bool,
-        toggleOpen:PropTypes.func
+        // }).isRequired,
+        })
     };
 
     state = {
         updateIndex: 0
     };
 
-    componentWillReceiveProps({isOpen,loadArt,article}){
+    // componentWillReceiveProps({isOpen,loadArt,article}){
+    //     // if(isOpen) loadArt(article.id)
+    //     // if(!this.props.isOpen && isOpen && !article.text && !article.loading) loadArt(article.id)
+    //     if(isOpen && !article.text && !article.loading) loadArt(article.id)
+    //
+    // }
+    componentDidMount(){
+        const {loadArt,article,id} = this.props
         // if(isOpen) loadArt(article.id)
         // if(!this.props.isOpen && isOpen && !article.text && !article.loading) loadArt(article.id)
-        if(isOpen && !article.text && !article.loading) loadArt(article.id)
+        if(!article || (!article.text && !article.loading)) loadArt(id)
 
     }
     // constructor(props){
@@ -58,6 +70,7 @@ class Article extends PureComponent{
 
         const {isOpen,article,toggleOpen} = this.props;
         // console.warn(article,"article")
+        if(!article) return null
         return(
         <section>
             {/*<h3>{this.article.title}</h3>*/}
@@ -113,4 +126,4 @@ class Article extends PureComponent{
 
 // export default toggleOpen(Article)
 // export default Article
-export default connect(null,{deleteArticle,loadArt})(Article)
+export default connect((state,ownProps) => ({article:state.articles.entities.get(ownProps.id)}),{deleteArticle,loadArt})(Article)

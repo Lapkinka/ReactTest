@@ -6,6 +6,7 @@ import {loadArticles} from '../AC'
 import {connect} from 'react-redux'
 import {filtrationArticlesSelector} from '../selectors/filtrationArticlesSelector'
 import Loader from './Loader/loader'
+import {NavLink} from 'react-router-dom'
 
 // export default function ArticleList({articles}) {
 //     const articlesElements = articles.map((elem) => <li key={elem.id}><Article article = {elem}/></li>);
@@ -22,12 +23,14 @@ class ArticleList extends Component{
         articles:PropTypes.array.isRequired,
         // from accordion
         openElemId:PropTypes.string,
-        toggleOpenElem:PropTypes.func.isRequired
+        // toggleOpenElem:PropTypes.func.isRequired
+        toggleOpenElem:PropTypes.func
     };
 
     componentDidMount(){
         const {loading,loaded,loadArticles} = this.props
-        if (!loading || !loaded) loadArticles()
+        // if (!loading || !loaded) loadArticles()
+        if (!loading && !loaded) loadArticles()
     }
     // state = {
     //     openArticleId : null
@@ -38,16 +41,19 @@ class ArticleList extends Component{
         // filters(articles);
         const articlesElements = articles.map((elem) =>
             <li key={elem.id}>
+                <NavLink to = {`/articles/${elem.id}`}  activeStyle = {{color:"blue"}}>
+                    {elem.title}
+                </NavLink>
             {/*<li key={elem.id} onClick = {toggleOpenElem(elem.id)}>*/}
-            <Article article = {elem}
-                     isOpen = {elem.id === openElemId}
-                     toggleOpen = {toggleOpenElem(elem.id)}
-            />
+            {/*<Article article = {elem}*/}
+                     {/*isOpen = {elem.id === openElemId}*/}
+                     {/*toggleOpen = {toggleOpenElem(elem.id)}*/}
+            {/*/>*/}
             </li>);
         return(
-            <ul>
-                {articlesElements}
-            </ul>
+                <ul>
+                    {articlesElements}
+                </ul>
         )
     }
     // toggleOpenArticle(openArticleId){
@@ -65,6 +71,7 @@ class ArticleList extends Component{
 export default connect(state => ({
     articles:filtrationArticlesSelector(state),
     loading:state.articles.loading,
-    loaded:state.articles.loaded}),{loadArticles})(accordion(ArticleList))
+    // loaded:state.articles.loaded}),{loadArticles})(accordion(ArticleList))
+    loaded:state.articles.loaded}),{loadArticles})(ArticleList)
 
 // export default connect(({articles}) =>({articles}))(accordion(ArticleList))
