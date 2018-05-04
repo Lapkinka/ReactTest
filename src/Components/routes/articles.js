@@ -18,6 +18,8 @@ class Articles extends Component{
                     <ArticleList/>
                     {/*<Route path = "/articles/:id" component = {Article}/>*/}
                     <Route path = "/articles/:id" render = {this.getArticle}/>
+                    {/*<Route path = "/articles" render = {this.getIndex} exact/>*/}
+                    <Route path = "/articles" children = {this.getIndex} exact/>
                 </div>
         )
     }
@@ -26,6 +28,11 @@ class Articles extends Component{
         return <Article id ={id} key = {id} isOpen/>
         // return <h1>Article id: {id}</h1>
 
+    }
+    getIndex = ({ match }) =>{
+        console.warn("MATCH",match)
+        if (!match) return <h2>This article:</h2>
+        return <h2>Select Article</h2>
     }
 
 }
