@@ -1,4 +1,4 @@
-import {DELETE_ARTICLE,INCREMENT,SELECT,DATARANGE,ADD_COMMENT,LOAD_ARTICLES,LOAD_ART,LOAD_COMMENT,START,FAIL,SUCCESS} from '../constants'
+import {DELETE_ARTICLE,INCREMENT,SELECT,DATARANGE,ADD_COMMENT,LOAD_ARTICLES,LOAD_ART,LOAD_COMMENT,START,FAIL,SUCCESS,LOAD_ALL_COMMENTS} from '../constants'
 
 export function increment() {
     return {
@@ -76,5 +76,13 @@ export function loadComment(articleId) {
         type:LOAD_COMMENT,
         payload: {articleId},
         callAPI:`/api/comment?article=${articleId}`
+    }
+}
+
+export function loadAllComments(page) {
+    return{
+        type:LOAD_ALL_COMMENTS,
+        payload:{page},
+        callAPI:`/api/comment`
     }
 }

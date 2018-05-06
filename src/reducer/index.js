@@ -3,10 +3,12 @@ import counterReducer from './counter'
 import articlesReducer from './articles'
 import commentsReducer from './comments'
 import filtersReducer from './mainFilters'
+import ShowAllComment from './ShowAllComment'
 
 export default combineReducers({
     count:counterReducer,
     articles:articlesReducer,
     comments:commentsReducer,
-    filters:filtersReducer
+    filters:filtersReducer,
+    allComments:ShowAllComment
 })

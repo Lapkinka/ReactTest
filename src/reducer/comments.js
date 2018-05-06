@@ -24,7 +24,8 @@ const defaultState = new ReducerState()
 export default (commentsState = defaultState,action) =>{
 // export default (commentsState = commentsMap,action) =>{
     const {type,payload,randomId,response} = action
-    console.warn("commentsState IN REDUCER",commentsState)
+    // console.warn("COMMENTSTATE REDUCER ----",commentsState)
+    // console.warn("COMMENTSTATE REDUCER ----",commentsState.get(`entities`))
     switch(type){
         // case ADD_COMMENT : return {...commentsState,[randomId]:{id:randomId, user:payload.user, text:payload.text}}
         // case ADD_COMMENT : return commentsState.updateIn(['entities',payload.articleId,"comments"],comments => comments.concat(randomId))

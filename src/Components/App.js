@@ -8,6 +8,7 @@ import NotFound from './routes/NotFound'
 import UserForm from './userForm'
 import Filters from './Filters/index'
 import Counter from './Counter'
+import CommentsAllShow from './routes/CommentsAllShow'
 // import {HashRouter as Router,Route,Link,NavLink} from 'react-router-dom'
 import {BrowserRouter as Router,Route,Link,Switch,NavLink} from 'react-router-dom'
 
@@ -29,6 +30,7 @@ class App extends Component{
                     <UserForm/>
                     <Switch>
                     <Route path = "/counter" component = {Counter}/>
+                    <Route path = "/comment" component = {CommentsAllShow}/>
                     <Route path = "/filters" component = {Filters}/>
                     <Route path = "/articles/new" component = {NewArticle}/>
                     <Route path = "/articles" component = {Articles}/>

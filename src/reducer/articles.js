@@ -39,7 +39,7 @@ export default (articlesState = defaultState,action) =>{
             // return articlesState.delete(payload.id)
             return articlesState.deleteIn(['entities',payload.id])
         }
-                case ADD_COMMENT : {
+        case ADD_COMMENT : {
             // return articlesState.update(payload.articleId,(article) => article.set())
             // return articlesState.updateIn([payload.articleId,"comments"],(comments) => comments.concat(randomId))
             return articlesState.updateIn(['entities',payload.articleId,"comments"],comments => comments.concat(randomId))

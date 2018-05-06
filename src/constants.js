@@ -14,6 +14,8 @@ export const LOAD_ART = 'LOAD_ART'
 
 export const LOAD_COMMENT = 'LOAD_COMMENT'
 
+export const LOAD_ALL_COMMENTS = 'LOAD_ALL_COMMENTS'
+
 export const START = '_START'
 
 export const SUCCESS = '_SUCCESS'

@@ -25,12 +25,13 @@ class Articles extends Component{
     }
     getArticle = ({match}) =>{
         const { id } = match.params
+        // console.warn("ID",match.params)
+        // console.warn("MATCH",match)
         return <Article id ={id} key = {id} isOpen/>
         // return <h1>Article id: {id}</h1>
 
     }
     getIndex = ({ match }) =>{
-        console.warn("MATCH",match)
         if (!match) return <h2>This article:</h2>
         return <h2>Select Article</h2>
     }
