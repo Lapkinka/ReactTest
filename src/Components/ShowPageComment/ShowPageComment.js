@@ -7,18 +7,21 @@ class ShowPageComment extends PureComponent {
     static defaultProps = {};
 
     static propTypes = {
-        allComments:PropTypes.object,
+        allComments:PropTypes.array.isRequired,
         page:PropTypes.string,
         loading:PropTypes.bool,
-        loaded:PropTypes.bool
+        loaded:PropTypes.bool,
+        sum:PropTypes.number,
     };
 
     render() {
-        const {allComments,page,loading,loaded} = this.props
+        const {allComments,page,loading,loaded,sum} = this.props
         console.warn("comments ---",allComments)
+        // allComments.forEach(elem => console.log(elem))
         console.warn("page ---",page)
         console.warn("loading ---",loading)
         console.warn("loaded ---",loaded)
+        console.warn("sum ---",sum)
         return (
             <div>
                 return <h2>ya tyt</h2>
@@ -28,11 +31,12 @@ class ShowPageComment extends PureComponent {
 }
 
 export default connect(state =>{
-    console.warn(state)
+    // console.warn(state)
     return {
-        comments:state.allComments.entities,
+        allComments:state.allComments.entities,
         page:state.allComments.page,
         loading:state.allComments.loading,
-        loaded:state.allComments.loaded
+        loaded:state.allComments.loaded,
+        sum:state.allComments.sum,
     }
 })(ShowPageComment);

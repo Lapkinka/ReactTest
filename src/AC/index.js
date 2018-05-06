@@ -80,9 +80,28 @@ export function loadComment(articleId) {
 }
 
 export function loadAllComments(page) {
-    return{
-        type:LOAD_ALL_COMMENTS,
-        payload:{page},
-        callAPI:`/api/comment`
+    // return{
+    //     type:LOAD_ALL_COMMENTS,
+    //     payload:{page},
+    //     callAPI:`/api/comment`
+    // }
+    return (dispatch) => {
+        dispatch({
+            type: LOAD_ALL_COMMENTS + START,
+            payload:{page}
+        })
+
+        setTimeout(() =>{
+            fetch(`/api/comment`)
+                .then(res => res.json())
+                .then(response => dispatch({
+                    type:LOAD_ALL_COMMENTS + SUCCESS,
+                    payload:{ page, response}
+                }))
+                .catch(error => dispatch({
+                type:LOAD_ALL_COMMENTS + FAIL,
+                payload:{ page, error}
+            }))
+        },1000)
     }
 }
