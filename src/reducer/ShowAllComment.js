@@ -5,7 +5,6 @@ import {Map, Record, OrderedMap} from 'immutable'
 const ReducerState = new Record({
     loading:false,
     loaded:false,
-    sum:undefined,
     page:undefined,
     entities:[]
 })
@@ -32,7 +31,6 @@ export default (articlesState = defaultState,action) =>{
             return articlesState
                 .set('page', payload.page)
                 .set('entities', payload.response.records)
-                .set('sum', payload.response.total)
                 .set('loading', false)
                 .set('loaded', true)
                 // .setIn(['entities',payload.articleId,'commentsLoading'],false)

@@ -15,16 +15,31 @@ class ShowPageComment extends PureComponent {
     };
 
     render() {
-        const {allComments,page,loading,loaded,sum} = this.props
-        console.warn("comments ---",allComments)
-        // allComments.forEach(elem => console.log(elem))
-        console.warn("page ---",page)
-        console.warn("loading ---",loading)
-        console.warn("loaded ---",loaded)
-        console.warn("sum ---",sum)
+        const {allComments,page,loading,loaded} = this.props
+        console.log("loading",loading)
+        console.log("loaded",loaded)
+        if(page <= 0) return(<section>Enter a positive number</section>);
+        let beginning = (page - 1) * 5
+        let end = 5 * page
+        let nowPageCount = [...allComments.slice(beginning,end)]
+        if(loading) return <Loader/>
+        if(!nowPageCount.length) return(<section>No comments on this page, please enter another</section>);
         return (
             <div>
-                return <h2>ya tyt</h2>
+                <span>allComments:{allComments.length}</span>
+                <br/><br/>
+                {nowPageCount.map((elem,i) => {
+                    return (
+                        <div key={i}>
+                            <span>"id":{elem.id}</span>
+                            <br/><br/>
+                            <span>"user":{elem.user}</span>
+                            <br/><br/>
+                            <span>"text":{elem.text}</span>
+                            <br/><br/>
+                        </div>)
+                })
+                }
             </div>
         );
     }

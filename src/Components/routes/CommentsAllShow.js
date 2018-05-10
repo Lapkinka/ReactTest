@@ -11,10 +11,9 @@ class CommentsAllShow extends PureComponent {
     static propTypes = {};
 
     render() {
-        console.log("sdhkhsdjhfhjsdhfkjsdh")
         return (
             <div>
-                <Route path = "/comment/:page" render = {this.getPage}/>
+                <Route path = "/comments/:page" render = {this.getPage}/>
             </div>
         );
     }

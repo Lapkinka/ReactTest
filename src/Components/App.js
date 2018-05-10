@@ -30,7 +30,7 @@ class App extends Component{
                     <UserForm/>
                     <Switch>
                     <Route path = "/counter" component = {Counter}/>
-                    <Route path = "/comment" component = {CommentsAllShow}/>
+                    <Route path = "/comments" component = {CommentsAllShow}/>
                     <Route path = "/filters" component = {Filters}/>
                     <Route path = "/articles/new" component = {NewArticle}/>
                     <Route path = "/articles" component = {Articles}/>

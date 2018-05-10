@@ -67,8 +67,6 @@ function getBody({article:{comments = [], id, commentsLoaded, commentsLoading},i
         console.warn(comments,"comments")
         if(!isOpen) return null
         if(commentsLoading) return <Loader/>
-        if(!commentsLoaded) return null
-
         if(!comments.length) return(<section>No comments</section>);
         return(
             <section>
