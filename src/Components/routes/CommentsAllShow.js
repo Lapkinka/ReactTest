@@ -2,26 +2,19 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {Route} from "react-router-dom"
 import ShowPageComment from '../ShowPageComment/ShowPageComment'
-import { loadAllComments} from '../../AC'
+import {loadAllComments} from '../../AC'
 import {connect} from 'react-redux'
 
 class CommentsAllShow extends PureComponent {
     static defaultProps = {};
-
     static propTypes = {};
 
     render() {
-        return (
-            <div>
-                <Route path = "/comments/:page" render = {this.getPage}/>
-            </div>
-        );
+        return <Route path = "/comments/:page" render = {this.getPage}/>;
     }
     getPage = ({match}) =>{
         const {page} = match.params
-        const {loadAllComments} = this.props
-        loadAllComments(page)
-        return <ShowPageComment/>
+        return <ShowPageComment page={page}/>
     }
 }
 

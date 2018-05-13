@@ -17,13 +17,9 @@ class Article extends PureComponent{
         toggleOpen:PropTypes.func,
         //connect
         article:PropTypes.shape({
-            // id: PropTypes.string.isRequired,
             id: PropTypes.string,
-            // title: PropTypes.string.isRequired,
             title: PropTypes.string,
-            // text: PropTypes.string.isRequired
             text: PropTypes.string
-        // }).isRequired,
         })
     };
 

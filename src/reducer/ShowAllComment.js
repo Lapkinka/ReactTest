@@ -1,42 +1,34 @@
 import {LOAD_ALL_COMMENTS, START, SUCCESS} from '../constants'
-import { arrToMap } from '../helpers/helpersJs'
 import {Map, Record, OrderedMap} from 'immutable'
 
+
+const pageRecord = Record({
+  records:[],
+  total:undefined,
+  loadingComments:false,
+  loadedComments:false
+})
+
+
 const ReducerState = new Record({
-    loading:false,
-    loaded:false,
-    page:undefined,
-    entities:[]
+    entities:new OrderedMap({})
 })
 
 const defaultState = new ReducerState()
 
-export default (articlesState = defaultState,action) =>{
+export default (commentsState = defaultState,action) =>{
     const {type,payload} = action;
-    console.warn(action,"---action--")
-    console.warn(payload,"---payload--")
-    if(payload!==undefined){
-        console.warn(payload.response,"---payloadfdsfsdfsd--")
-    }
-
     switch(type){
         case LOAD_ALL_COMMENTS + START : {
-            // return articlesState.setIn(['entities',payload.articleId,'commentsLoading'],true)
-            return articlesState
-                .set('loading', true)
-
+          return commentsState.setIn(['entities',payload.page,'loadingComments'],true)
         }
 
         case LOAD_ALL_COMMENTS + SUCCESS : {
-            return articlesState
-                .set('page', payload.page)
-                .set('entities', payload.response.records)
-                .set('loading', false)
-                .set('loaded', true)
-                // .setIn(['entities',payload.articleId,'commentsLoading'],false)
-                // .setIn(['entities',payload.articleId,'commentsLoaded'],true)
+          return commentsState
+            .setIn(['entities',payload.page],new pageRecord(payload.response))
+            .setIn(['entities',payload.page,'loadingComments'],false)
+            .setIn(['entities',payload.page,'loadedComments'],true)
         }
     }
-
-    return articlesState
+    return commentsState
 }
