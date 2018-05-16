@@ -9,6 +9,11 @@ import Loader from './Loader/loader'
 import {filtrationArticlesSelector} from "../selectors/filtrationArticlesSelector";
 
 class CommentsList extends Component {
+  static contextTypes = {
+    store:PropTypes.object,
+    router:PropTypes.object,
+    user:PropTypes.string
+  }
     componentWillReceiveProps({isOpen, loadComment, article}) {
         // if(isOpen) loadArt(article.id)
         // if(!this.props.isOpen && isOpen && !article.text && !article.loading) loadArt(article.id)
@@ -34,11 +39,13 @@ class CommentsList extends Component {
     // };
     render() {
         const {toggleOpen, isOpen, article} = this.props;
+        console.log("this.context",this.context)
         // console.warn("comments in CommentsList",this.props.comments)
         return (
             <section>
-                <button onClick={toggleOpen}>{isOpen ? "hide comment" : "show comment"}</button>
-                {getBody({article, isOpen})}
+              <h3>User:{this.context.user}</h3>
+              <button onClick={toggleOpen}>{isOpen ? "hide comment" : "show comment"}</button>
+              {getBody({article, isOpen})}
             </section>
         )
     }
@@ -81,4 +88,4 @@ function getBody({article:{comments = [], id, commentsLoaded, commentsLoading},i
     //     });
     // }
 
-export default connect(null,{loadComment})(toggleOpen(CommentsList))
+export default connect(null,{loadComment},null,{pure:false})(toggleOpen(CommentsList))

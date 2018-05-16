@@ -9,7 +9,7 @@ import Loader from '../Loader/loader'
 import {CSSTransitionGroup} from 'react-transition-group'
 import './style.css'
 
-class Article extends PureComponent{
+class Article extends Component{
     static propTypes = {
         // article:PropTypes.object.isRequired
         id:PropTypes.string.isRequired,
@@ -122,4 +122,7 @@ class Article extends PureComponent{
 
 // export default toggleOpen(Article)
 // export default Article
-export default connect((state,ownProps) => ({article:state.articles.entities.get(ownProps.id)}),{deleteArticle,loadArt})(Article)
+export default connect((state,ownProps) => ({article:state.articles.entities.get(ownProps.id)})
+  ,{deleteArticle,loadArt},
+  null,
+  {pure:false})(Article)

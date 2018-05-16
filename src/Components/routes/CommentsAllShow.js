@@ -1,21 +1,14 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
-import {Route} from "react-router-dom"
+import React from 'react';
+import {Route,Redirect} from "react-router-dom"
 import ShowPageComment from '../ShowPageComment/ShowPageComment'
-import {loadAllComments} from '../../AC'
-import {connect} from 'react-redux'
 
-class CommentsAllShow extends PureComponent {
-    static defaultProps = {};
-    static propTypes = {};
-
-    render() {
-        return <Route path = "/comments/:page" render = {this.getPage}/>;
-    }
-    getPage = ({match}) =>{
-        const {page} = match.params
-        return <ShowPageComment page={page}/>
-    }
+function CommentsAllShow ({match}) {
+    if(match.isExact) return <Redirect to = "/comments/1"/>
+    return <Route path="/comments/:page" render={getPagination}/>
 }
 
-export default connect(null,({loadAllComments}))(CommentsAllShow);
+function getPagination ({match}) {
+  return <ShowPageComment page={match.params.page}/>
+}
+
+export default CommentsAllShow

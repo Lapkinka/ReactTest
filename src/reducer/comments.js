@@ -1,20 +1,18 @@
 import {normalizedComments as defaultComments} from '../fixtures'
-import {ADD_COMMENT, LOAD_COMMENT, START, SUCCESS} from '../constants'
+import { ADD_COMMENT, LOAD_ALL_COMMENTS, LOAD_COMMENT, START, SUCCESS } from '../constants'
 import {arrToMap} from '../helpers/helpersJs'
-import {OrderedMap, Record} from "immutable";
+import {OrderedMap, Record, Map} from "immutable";
 
 const CommentRecord = Record({
     text:undefined,
     user:undefined,
     id:undefined
-    // loading:false
-
 })
 
 const ReducerState = new Record({
-    // loading: new Set([]),
-    // loaded: new Set([]),
-    entities:new OrderedMap({})
+    entities:new OrderedMap({}),
+    total:null,
+    pagination:new Map({})
 })
 
 const defaultState = new ReducerState()
@@ -48,6 +46,18 @@ export default (commentsState = defaultState,action) =>{
             //     .set('entities', arrToMap(response,CommentRecord))
             //     .set('loading', false)
             //     .set('loaded', true)
+        }
+
+        case LOAD_ALL_COMMENTS + START : {
+            return commentsState.setIn(['pagination',payload.page,'loading'],true)
+        }
+
+        case LOAD_ALL_COMMENTS + SUCCESS : {
+            return commentsState
+              .set('total',response.total)
+              .mergeIn(['entities'],arrToMap(response.records,CommentRecord))
+              .setIn(['pagination',payload.page,'loading'],false)
+              .setIn(['pagination',payload.page,'ids'],response.records.map(elem => elem.id))
         }
     }
 

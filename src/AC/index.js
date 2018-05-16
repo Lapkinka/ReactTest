@@ -1,4 +1,5 @@
 import {DELETE_ARTICLE,INCREMENT,SELECT,DATARANGE,ADD_COMMENT,LOAD_ARTICLES,LOAD_ART,LOAD_COMMENT,START,FAIL,SUCCESS,LOAD_ALL_COMMENTS} from '../constants'
+import {push,replace} from 'react-router-redux'
 
 export function increment() {
     return {
@@ -51,22 +52,35 @@ export function loadArticles() {
 
 export function loadArt(id) {
     return (dispatch) => {
-        dispatch({
-            type: LOAD_ART + START,
-            payload:{id}
-        })
+      dispatch({
+        type: LOAD_ART + START,
+        payload: {id},
+        callAPI: `/api/article/${id}`
+      })
+    // return {
+    //     type: LOAD_ART,
+    //     payload: {id},
+    //     callAPI: `/api/article/${id}`
+    // }
 
         setTimeout(() =>{
             fetch(`/api/article/${id}`)
-                .then(res => res.json())
+                .then(res => {
+                  if(res.status >= 400) throw new Error(res.statusText)
+
+                  return res.json()
+                })
                 .then(response => dispatch({
                     type:LOAD_ART + SUCCESS,
                     payload:{ id, response}
                 }))
-                .catch(error => dispatch({
-                    type:LOAD_ART + FAIL,
-                    payload:{id,error}
-                }))
+                .catch(error =>{
+                    dispatch({
+                      type:LOAD_ART + FAIL,
+                      payload:{id,error}
+                    })
+                    dispatch(replace("/error"))
+                })
         },1000)
     }
 }
@@ -85,23 +99,26 @@ export function loadAllComments(page) {
     //     payload:{page},
     //     callAPI:`/api/comment`
     // }
-    return (dispatch) => {
-        dispatch({
-            type: LOAD_ALL_COMMENTS + START,
-            payload:{page}
+    return (dispatch,getState) => {
+        const {comments:{pagination}} = getState()
+      if(pagination.getIn([page,'loading']) || pagination.getIn([page,'ids'])) return
+      dispatch({
+            type: LOAD_ALL_COMMENTS,
+            payload:{page},
+            callAPI:`/api/comment?limit=5&offset=${(page-1)*5}`
         })
 
-        setTimeout(() =>{
-            fetch(`/api/comment`)
-                .then(res => res.json())
-                .then(response => dispatch({
-                    type:LOAD_ALL_COMMENTS + SUCCESS,
-                    payload:{ page, response}
-                }))
-                .catch(error => dispatch({
-                type:LOAD_ALL_COMMENTS + FAIL,
-                payload:{ page, error}
-            }))
-        },1000)
+        // setTimeout(() =>{
+        //     fetch(`/api/comment`)
+        //         .then(res => res.json())
+        //         .then(response => dispatch({
+        //             type:LOAD_ALL_COMMENTS + SUCCESS,
+        //             payload:{ page, response}
+        //         }))
+        //         .catch(error => dispatch({
+        //         type:LOAD_ALL_COMMENTS + FAIL,
+        //         payload:{ page, error}
+        //     }))
+        // },1000)
     }
 }

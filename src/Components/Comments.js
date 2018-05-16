@@ -14,13 +14,13 @@ function Comments({comments}) {
 }
 
 Comments.propTypes = {
-    id:PropTypes.string.isRequired,
+    id:PropTypes.string,
     //from connect
     comments:PropTypes.shape({
         // text:PropTypes.string.isRequired,
         text:PropTypes.string,
         user:PropTypes.string.isRequired
-    }).isRequired
+    })
 };
 
 const mapStateToProps = () => {
