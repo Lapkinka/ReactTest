@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import Article from "../Article";
 import Counter from "../Counter";
 import Filters from "../Filters";
+import ChangeWordsLanguage from '../ChangeWordsLanguage'
 import {Route} from "react-router-dom"
 
 
@@ -32,8 +33,8 @@ class Articles extends Component{
 
     }
     getIndex = ({ match }) =>{
-        if (!match) return <h2>This article:</h2>
-        return <h2>Select Article</h2>
+        if (!match) return <h2><ChangeWordsLanguage word = {'this_article'} symbol ={':'}/></h2>
+        return <h2><ChangeWordsLanguage word = {'select_article'}/></h2>
     }
 
 }

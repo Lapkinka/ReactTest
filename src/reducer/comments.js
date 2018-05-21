@@ -30,7 +30,7 @@ export default (commentsState = defaultState,action) =>{
         // case ADD_COMMENT : return commentsState.updateIn(['entities',randomId],{id:randomId, user:payload.user, text:payload.text})
         // case ADD_COMMENT : return commentsState.updateIn(['entities',randomId], new CommentRecord({user:payload.user,text:payload.text,id:randomId}))
         // case ADD_COMMENT : return commentsState.setIn(['entities',randomId], new CommentRecord({user:payload.user,text:payload.text,id:randomId}))
-        case ADD_COMMENT : return commentsState.setIn(['entities',randomId], new CommentRecord({...payload.comment,id:randomId}))
+        case ADD_COMMENT : return commentsState.setIn(['entities',randomId], new CommentRecord({text:payload.text,user:payload.user,id:randomId}))
 
         // case LOAD_COMMENT + START : {
         //     // return arrToMap(response,articleRecord)

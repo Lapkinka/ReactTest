@@ -35,9 +35,8 @@ const constraints = {
 };
 
 export function lengthValue(state) {
-  console.log("state.userName",state.userName)
-  return ((state.userName.length > constraints['userName'].min && state.userName.length < constraints['userName'].max)
-    && (state.comment.length > constraints['comment'].min && state.comment.length < constraints['comment'].max))
+  return ((state.userName.length >= constraints['userName'].min && state.userName.length <= constraints['userName'].max)
+    && (state.comment.length >= constraints['comment'].min && state.comment.length <= constraints['comment'].max))
 }
 
 export function wrongInInput(state,type) {

@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react';
+import ChangeWordsLanguage from '../ChangeWordsLanguage'
 import PropTypes from 'prop-types';
 
 class NewArticle extends PureComponent {
@@ -9,7 +10,7 @@ class NewArticle extends PureComponent {
     render() {
         return (
             <div>
-                <h1>New Article Form</h1>
+                <h1><ChangeWordsLanguage word = {'new_article_form'}/></h1>
             </div>
         );
     }

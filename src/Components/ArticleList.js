@@ -72,6 +72,6 @@ export default connect(state => ({
     articles:filtrationArticlesSelector(state),
     loading:state.articles.loading,
     // loaded:state.articles.loaded}),{loadArticles})(accordion(ArticleList))
-    loaded:state.articles.loaded}),{loadArticles})(ArticleList)
+    loaded:state.articles.loaded}),{loadArticles},null,{pure:false})(ArticleList)
 
 // export default connect(({articles}) =>({articles}))(accordion(ArticleList))

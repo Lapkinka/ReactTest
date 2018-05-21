@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import {commentsSelectorFactory} from '../selectors/commentsSelector'
 
 function Comments({comments}) {
+    if(comments === undefined) return null
     return (
         <section>
             <h4>{comments.user}</h4>
@@ -14,11 +15,11 @@ function Comments({comments}) {
 }
 
 Comments.propTypes = {
-    id:PropTypes.string,
+    id:PropTypes.string.isRequired,
     //from connect
     comments:PropTypes.shape({
         // text:PropTypes.string.isRequired,
-        text:PropTypes.string,
+        text:PropTypes.string.isRequired,
         user:PropTypes.string.isRequired
     })
 };

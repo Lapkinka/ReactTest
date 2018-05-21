@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {addComment} from '../../AC/index'
 import './style.css'
+import ChangeWordsLanguage from '../ChangeWordsLanguage'
 import { lengthValue,wrongInInput } from '../../helpers/helpersJs'
 
 class CommentForm extends Component{
@@ -17,13 +18,17 @@ class CommentForm extends Component{
     render(){
         return(
             <div>
-                Name:<input className={this.getClassName('userName')}
-                            value = {this.state.userName}
-                            onChange={this.handleChange('userName')}/>
-                Comment:<input className={this.getClassName('comment')}
-                               value = {this.state.comment}
-                               onChange={this.handleChange('comment')}/>
-                <button className={this.statusButton()} onClick={this.handleAdd} >add Comment</button>
+              <ChangeWordsLanguage word = {'name'} symbol = {':'}/>
+              <input className={this.getClassName('userName')}
+                     value = {this.state.userName}
+                     onChange={this.handleChange('userName')}/>
+              <ChangeWordsLanguage word = {'comment'} symbol = {':'}/>
+              <input className={this.getClassName('comment')}
+                     value = {this.state.comment}
+                     onChange={this.handleChange('comment')}/>
+              <button className={this.statusButton()} onClick={this.handleAdd}>
+                <ChangeWordsLanguage word = {'add_comment'}/>
+              </button>
                 {/*<button>add Comment</button>*/}
             </div>
         )

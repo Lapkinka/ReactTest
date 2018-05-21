@@ -20,6 +20,7 @@ export const commentsSelectorFactory = () => createSelector(commentsGetter,idGet
     // console.warn("state",store)
     // console.warn("store.comments",store.comments)
     console.warn("comments in selector",comments)
+    console.warn("comments.get(id)",comments.get(id))
     return comments.get(id)
     // return comments.find(elem => elem.id === id)
     // return store

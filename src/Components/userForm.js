@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import ChangeWordsLanguage from './ChangeWordsLanguage'
 import PropTypes from 'prop-types'
 
 class UserForm extends Component{
@@ -8,15 +9,13 @@ class UserForm extends Component{
     render(){
         return(
             <div>
-                Name:<input type = 'text' value = {this.props.userName} onChange={this.handleUserChange}/>
+              <ChangeWordsLanguage word = {'name'} symbol = {':'}/>
+              <input type = 'text' value = {this.props.userName} onChange={this.handleUserChange}/>
             </div>
         )
     }
     handleUserChange = (ev) =>{
-        this.props.onChange(ev.target.value)
-        // this.setState({
-        //     userName:ev.target.value
-        // })
+      this.props.onChange(ev.target.value)
     }
 
 }
