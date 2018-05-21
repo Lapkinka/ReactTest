@@ -8,7 +8,7 @@ import {routerMiddleware} from 'react-router-redux'
 import history from '../history'
 
 // const enhancer = applyMiddleware(uuid,logger)
-  const enhancer = applyMiddleware(thunk, routerMiddleware(history), uuid,api/*,logger*/)
+  const enhancer = applyMiddleware(thunk, routerMiddleware(history), uuid,api,logger)
 
 const store = createStore(reducer,{},enhancer);
 

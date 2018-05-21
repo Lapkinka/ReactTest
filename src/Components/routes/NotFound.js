@@ -9,7 +9,7 @@ class NotFound extends PureComponent {
     render() {
         return (
             <div>
-                <h1>NotFound</h1>
+                <h1><ChangeWordsLanguage word = {'not_found'}/></h1>
             </div>
         );
     }

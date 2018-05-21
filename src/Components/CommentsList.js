@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import toggleOpen from '../Decorators/toggleOpen'
 import CommentForm from "./CommentForm/index";
+import ChangeWordsLanguage from './ChangeWordsLanguage'
 import {loadComment} from '../AC/index'
 import Loader from './Loader/loader'
 import {filtrationArticlesSelector} from "../selectors/filtrationArticlesSelector";
@@ -12,7 +13,9 @@ class CommentsList extends Component {
   static contextTypes = {
     store:PropTypes.object,
     router:PropTypes.object,
-    user:PropTypes.string
+    user:PropTypes.string,
+    languages:PropTypes.object,
+    choiceLanguage:PropTypes.string
   }
     componentWillReceiveProps({isOpen, loadComment, article}) {
         // if(isOpen) loadArt(article.id)
@@ -39,11 +42,12 @@ class CommentsList extends Component {
     // };
     render() {
         const {toggleOpen, isOpen, article} = this.props;
-        console.log("this.context",this.context)
-        // console.warn("comments in CommentsList",this.props.comments)
         return (
             <section>
-              <h3>User:{this.context.user}</h3>
+                <h3>
+                  <ChangeWordsLanguage word = {'user'} symbol = {':'}/>
+                  {this.context.user}
+                </h3>
               <button onClick={toggleOpen}>{isOpen ? "hide comment" : "show comment"}</button>
               {getBody({article, isOpen})}
             </section>
@@ -71,10 +75,10 @@ CommentsList.propTypes = {
 function getBody({article:{comments = [], id, commentsLoaded, commentsLoading},isOpen}) {
         // const {comments,articleId,isOpen} = this.props;
         // const {article:{comments = [], id, commentsLoaded, commentsLoading},isOpen} = this.props;
-        console.warn(comments,"comments")
+        console.warn(comments,"comments-----")
         if(!isOpen) return null
         if(commentsLoading) return <Loader/>
-        if(!comments.length) return(<section>No comments</section>);
+        if(!comments.length) return(<section><ChangeWordsLanguage word = {'no_comments'}/></section>);
         return(
             <section>
                 {comments.map(elem => <Comments key = {elem}  id = {elem}/>)}

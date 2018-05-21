@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import ChangeWordsLanguage from './ChangeWordsLanguage'
 import {increment} from '../AC'
 
 class Counter extends Component{
@@ -12,18 +13,13 @@ class Counter extends Component{
         return(
             <div>
                 <h2>{this.props.counter}</h2>
-                <button onClick={this.handleIncrement}>Increment me</button>
+                <button onClick={this.handleIncrement}>
+                  <ChangeWordsLanguage word = {'increment_me'}/>
+                </button>
             </div>
         )
     }
-    handleIncrement = () => {
-        const {increment} = this.props
-        console.log("---Increment")
-        // this.props.dispatch(increment())
-        // this.props.dispatch(increment())
-        // this.props.increment()
-        increment()
-    }
+    handleIncrement = () => this.props.increment()
 
 }
 
@@ -39,4 +35,4 @@ class Counter extends Component{
 // const decorator = connect(mapStateToProps,mapToDispatch)
 
 // export default decorator(Counter)
-export default connect(state => ({counter:state.count}),{increment})(Counter)
+export default connect(state => ({counter:state.count}),{increment},null,{pure:false})(Counter)

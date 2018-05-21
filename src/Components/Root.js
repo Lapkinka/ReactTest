@@ -4,10 +4,11 @@ import App from './App'
 import store from '../Store'
 import {Provider} from 'react-redux'
 
+
 // function Root (props){
 function Root (){
     return(
-        <Provider store={store}>
+        <Provider store = {store}>
             {/*<App {...props}/>*/}
             <App/>
         </Provider>

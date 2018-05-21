@@ -4,6 +4,7 @@ import {findDOMNode} from 'react-dom'
 import CommentsList from '../CommentsList'
 import {connect} from 'react-redux'
 import {deleteArticle,loadArt} from '../../AC'
+import ChangeWordsLanguage from '../ChangeWordsLanguage'
 import Loader from '../Loader/loader'
 // import toggleOpen from '../Decorators/toggleOpen'
 import {CSSTransitionGroup} from 'react-transition-group'
@@ -68,21 +69,22 @@ class Article extends Component{
         // console.warn(article,"article")
         if(!article) return null
         return(
-        <section>
-            {/*<h3>{this.article.title}</h3>*/}
+          <section>
             <h3>{article.title}</h3>
             <button onClick={toggleOpen}>{isOpen ? 'close' : 'open'}</button>
-            <button onClick={this.handleDelete}>delete</button>
+            <button onClick={this.handleDelete}>
+              <ChangeWordsLanguage word = {'delete'}/>
+            </button>
             {/*<button onClick={this.toggleOpen}>{isOpen ? 'close' : 'open'}</button>*/}
             <CSSTransitionGroup
-                transitionName = 'article'
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={300}
-                component = 'div'
+              transitionName = 'article'
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={300}
+              component = 'div'
             >
-                {this.getBody()}
-            </CSSTransitionGroup>
-        </section>
+              {this.getBody()}
+              </CSSTransitionGroup>
+          </section>
         )
     }
     handleDelete = () => {
@@ -102,7 +104,9 @@ class Article extends Component{
                     {/*{this.article.text}*/}
                     {/*<CommentsList comments = {this.article.comments}/>  */}
                     {article.text}
-                    <button onClick = {() => this.setState({updateIndex:this.state.updateIndex + 1})}>update</button>
+                    <button onClick = {() => this.setState({updateIndex:this.state.updateIndex + 1})}>
+                      <ChangeWordsLanguage word = {'update'}/>
+                    </button>
                     {/*<CommentsList articleId = {article.id} comments = {article.comments} ref = {this.setCommentsRef} key = {this.state.updateIndex}/>*/}
                     <CommentsList article = {article} ref = {this.setCommentsRef} key = {this.state.updateIndex}/>
                 </section>
