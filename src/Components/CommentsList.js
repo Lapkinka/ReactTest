@@ -4,19 +4,19 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import toggleOpen from '../Decorators/toggleOpen'
 import CommentForm from "./CommentForm/index";
-import ChangeWordsLanguage from './ChangeWordsLanguage'
+import {ChangeWordsLanguage} from './ChangeWordsLanguage'
 import {loadComment} from '../AC/index'
 import Loader from './Loader/loader'
 import {filtrationArticlesSelector} from "../selectors/filtrationArticlesSelector";
 
 class CommentsList extends Component {
   static contextTypes = {
-    store:PropTypes.object,
-    router:PropTypes.object,
     user:PropTypes.string,
-    languages:PropTypes.object,
     choiceLanguage:PropTypes.string
   }
+  // componentWillMount(){
+  //   this.props.loadComment(this.props.articles.id)
+  // }
     componentWillReceiveProps({isOpen, loadComment, article}) {
         // if(isOpen) loadArt(article.id)
         // if(!this.props.isOpen && isOpen && !article.text && !article.loading) loadArt(article.id)
@@ -42,15 +42,18 @@ class CommentsList extends Component {
     // };
     render() {
         const {toggleOpen, isOpen, article} = this.props;
+        const {choiceLanguage} = this.context;
         return (
-            <section>
-                <h3>
-                  <ChangeWordsLanguage word = {'user'} symbol = {':'}/>
-                  {this.context.user}
-                </h3>
-              <button onClick={toggleOpen}>{isOpen ? "hide comment" : "show comment"}</button>
-              {getBody({article, isOpen})}
-            </section>
+          <section>
+            <h3>
+              {ChangeWordsLanguage('user',choiceLanguage)}:
+              {this.context.user}
+            </h3>
+            <button onClick={toggleOpen}>{isOpen ?
+              ChangeWordsLanguage('hide_comment',choiceLanguage) : ChangeWordsLanguage('show_comment',choiceLanguage)}
+            </button>
+            {getBody({article, isOpen,choiceLanguage})}
+          </section>
         )
     }
 }
@@ -72,13 +75,17 @@ CommentsList.propTypes = {
     //     // if(!this.props.isOpen && isOpen && !article.text && !article.loading) loadArt(article.id)
     //     if(isOpen && !comments.text && !comments.loading) loadComment(articleId)
     // }
-function getBody({article:{comments = [], id, commentsLoaded, commentsLoading},isOpen}) {
+function getBody({article:{comments = [], id, commentsLoaded, commentsLoading},isOpen,choiceLanguage}) {
         // const {comments,articleId,isOpen} = this.props;
         // const {article:{comments = [], id, commentsLoaded, commentsLoading},isOpen} = this.props;
-        console.warn(comments,"comments-----")
+        // console.warn(comments,"comments-----")
+        // console.warn(id,"id-----")
+        // console.warn(commentsLoaded,"commentsLoaded-----")
+        // console.warn(commentsLoading,"commentsLoading-----")
+        // console.warn(isOpen,"isOpen-----")
         if(!isOpen) return null
-        if(commentsLoading) return <Loader/>
-        if(!comments.length) return(<section><ChangeWordsLanguage word = {'no_comments'}/></section>);
+        if(commentsLoading) return <Loader choiceLanguage = {choiceLanguage}/>
+        if(!comments.length) return(<section>{ChangeWordsLanguage('no_comments',choiceLanguage)}</section>);
         return(
             <section>
                 {comments.map(elem => <Comments key = {elem}  id = {elem}/>)}

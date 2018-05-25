@@ -53,7 +53,7 @@ export function loadArticles() {
 export function loadArt(id) {
     return (dispatch) => {
       dispatch({
-        type: LOAD_ART + START,
+        type: LOAD_ART,
         payload: {id},
         callAPI: `/api/article/${id}`
       })

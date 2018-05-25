@@ -26,18 +26,27 @@ class ArticleList extends Component{
         // toggleOpenElem:PropTypes.func.isRequired
         toggleOpenElem:PropTypes.func
     };
-
-    componentDidMount(){
-        const {loading,loaded,loadArticles} = this.props
-        // if (!loading || !loaded) loadArticles()
-        if (!loading && !loaded) loadArticles()
+    static contextTypes = {
+        choiceLanguage:PropTypes.string
     }
+    componentWillMount(){
+        this.props.loadArticles()
+    }
+    // componentWillReceiveProps({loadArticles}){
+    //   loadArticles()
+    // }
+
+    // componentDidMount(){
+    //     const {loading,loaded,loadArticles} = this.props
+    //     // if (!loading || !loaded) loadArticles()
+    //     if (!loading && !loaded) loadArticles()
+    // }
     // state = {
     //     openArticleId : null
     // };
     render(){
         const{articles,openElemId,toggleOpenElem,loading} = this.props;
-        if(loading) return <Loader/>
+        if(loading) return <Loader choiceLanguage = {this.context.choiceLanguage}/>
         // filters(articles);
         const articlesElements = articles.map((elem) =>
             <li key={elem.id}>
@@ -51,9 +60,9 @@ class ArticleList extends Component{
             {/*/>*/}
             </li>);
         return(
-                <ul>
-                    {articlesElements}
-                </ul>
+          <ul>
+            {articlesElements}
+          </ul>
         )
     }
     // toggleOpenArticle(openArticleId){

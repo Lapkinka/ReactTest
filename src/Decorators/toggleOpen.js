@@ -14,6 +14,8 @@ export default (OriginalComponent) => class WrappedComponent extends ReactCompon
     //     console.log("WillUnmount")
     // }
     render(){
+        console.warn("this.props",this.props)
+        console.warn("this.state",this.state)
         // return <OriginalComponent {...this.props} isOpen = {this.state.isOpen} toggleOpen = {this.toggleOpen}/>
         return <OriginalComponent {...this.props} {...this.state} toggleOpen = {this.toggleOpen}/>
     }

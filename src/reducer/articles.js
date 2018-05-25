@@ -53,6 +53,7 @@ export default (articlesState = defaultState,action) =>{
         }
         case LOAD_ARTICLES + SUCCESS : {
             // return arrToMap(response,articleRecord)
+          console.log(articlesState.entities,"articlesState.entities")
             return articlesState
                 .set('entities', arrToMap(response,ArticleRecord))
                 .set('loading', false)

@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import ChangeWordsLanguage from '../ChangeWordsLanguage'
+import {ChangeWordsLanguage} from '../ChangeWordsLanguage'
 import PropTypes from 'prop-types';
 
 class NewArticle extends PureComponent {
@@ -7,10 +7,14 @@ class NewArticle extends PureComponent {
 
     static propTypes = {};
 
+    static contextTypes ={
+        choiceLanguage:PropTypes.string
+    }
+
     render() {
         return (
             <div>
-                <h1><ChangeWordsLanguage word = {'new_article_form'}/></h1>
+                <h1>{ChangeWordsLanguage('new_article_form',this.state.choiceLanguage)}</h1>
             </div>
         );
     }
