@@ -8,7 +8,7 @@ export const filtrationArticlesSelector = createSelector(articlesGetter,filtersG
   const {selection, dataRange: {from, to}} = filters
 
 
-  return mapToArr(articles).filter(elem => {
+  let a = mapToArr(articles).filter(elem => {
     let stateDate = Date.parse(elem.date)
     // console.log("!selection.length",!selection.length)
     // console.log("selection.includes(elem.id)",selection.includes(elem.id))
@@ -18,5 +18,7 @@ export const filtrationArticlesSelector = createSelector(articlesGetter,filtersG
     return (!selection.length || selection.includes(elem.id)) &&
       (!from || !to || (stateDate > from && stateDate < to))
   })
+  console.log("afdsfgghsfdgs",a)
+  return a
   // console.log("filterArctiles in connect",filterArticles)
 })

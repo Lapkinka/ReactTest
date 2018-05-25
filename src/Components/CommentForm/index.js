@@ -3,13 +3,16 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {addComment} from '../../AC/index'
 import './style.css'
-import ChangeWordsLanguage from '../ChangeWordsLanguage'
+import {ChangeWordsLanguage} from '../ChangeWordsLanguage'
 import { lengthValue,wrongInInput } from '../../helpers/helpersJs'
 
 class CommentForm extends Component{
     static PropTypes = {
         id:PropTypes.string.isRequired
     };
+    static contextTypes ={
+        choiceLanguage:PropTypes.string
+    }
     state = {
         userName : '',
         comment : '',
@@ -18,16 +21,16 @@ class CommentForm extends Component{
     render(){
         return(
             <div>
-              <ChangeWordsLanguage word = {'name'} symbol = {':'}/>
+              {ChangeWordsLanguage('name',this.context.choiceLanguage)}:
               <input className={this.getClassName('userName')}
                      value = {this.state.userName}
                      onChange={this.handleChange('userName')}/>
-              <ChangeWordsLanguage word = {'comment'} symbol = {':'}/>
+              {ChangeWordsLanguage('comment',this.context.choiceLanguage)}:
               <input className={this.getClassName('comment')}
                      value = {this.state.comment}
                      onChange={this.handleChange('comment')}/>
               <button className={this.statusButton()} onClick={this.handleAdd}>
-                <ChangeWordsLanguage word = {'add_comment'}/>
+                {ChangeWordsLanguage('add_comment',this.context.choiceLanguage)}
               </button>
                 {/*<button>add Comment</button>*/}
             </div>
@@ -59,4 +62,4 @@ const constraints = {
 };
 
 // export default CommentForm
-export default connect(null,{addComment})(CommentForm)
+export default connect(null,{addComment},null,{pure:false})(CommentForm)

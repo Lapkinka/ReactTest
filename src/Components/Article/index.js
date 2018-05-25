@@ -4,9 +4,9 @@ import {findDOMNode} from 'react-dom'
 import CommentsList from '../CommentsList'
 import {connect} from 'react-redux'
 import {deleteArticle,loadArt} from '../../AC'
-import ChangeWordsLanguage from '../ChangeWordsLanguage'
+import {ChangeWordsLanguage} from '../ChangeWordsLanguage'
 import Loader from '../Loader/loader'
-// import toggleOpen from '../Decorators/toggleOpen'
+import toggleOpen from '../../Decorators/toggleOpen'
 import {CSSTransitionGroup} from 'react-transition-group'
 import './style.css'
 
@@ -23,24 +23,53 @@ class Article extends Component{
             text: PropTypes.string
         })
     };
+    static contextTypes ={
+        choiceLanguage:PropTypes.string
+    }
 
     state = {
         updateIndex: 0
     };
+    componentWillMount(){
+      this.props.loadArt(this.props.id)
+    }
+    // componentWillReceiveProps({id,loadArt}){
+    //   loadArt(id)
+    // }
 
-    // componentWillReceiveProps({isOpen,loadArt,article}){
+    // componentWillReceiveProps(nextProps){
     //     // if(isOpen) loadArt(article.id)
     //     // if(!this.props.isOpen && isOpen && !article.text && !article.loading) loadArt(article.id)
-    //     if(isOpen && !article.text && !article.loading) loadArt(article.id)
+    //     // if(isOpen && !article.text && !article.loading) loadArt(article.id)
+    //   console.log(nextProps.isOpen,"isOpen")
+    //   console.log(nextProps.loadArt,"loadArt")
+    //   console.log(nextProps.article,"article")
+    //   // console.log(nextProps.article.text,"article text")
+    //   // console.log(nextProps.article.loading,"articleloading")
+    //   console.log(this.props.id,"id")
+    //   console.log(this.props.article,"article")
+    //   // console.log(article === undefined,"article")
+    //   // console.log(article.text,"article.text")
+    //   // console.log(article.loading,"article.loading")
+    //   // console.log(this.props.article,"this.article")
+    //   // console.log(this.props.article === undefined,"this.article")
+    //   // console.log(this.props.id,"id")
+    //   if(nextProps.article === undefined || (nextProps.article.loading && !nextProps.article.text)) {
+    //       console.log("zawelll")
+    //       console.log("nextProps.article",nextProps.article)
+    //       console.log("nextProps.article.loading",nextProps.article.loading)
+    //       loadArt(this.props.id)
+    //   }
     //
     // }
-    componentDidMount(){
-        const {loadArt,article,id} = this.props
-        // if(isOpen) loadArt(article.id)
-        // if(!this.props.isOpen && isOpen && !article.text && !article.loading) loadArt(article.id)
-        if(!article || (!article.text && !article.loading)) loadArt(id)
 
-    }
+    // componentDidMount(){
+    //     const {loadArt,article,id} = this.props
+    //     // if(isOpen) loadArt(article.id)
+    //     // if(!this.props.isOpen && isOpen && !article.text && !article.loading) loadArt(article.id)
+    //     if(!article || (!article.text && !article.loading)) loadArt(id)
+    //
+    // }
     // constructor(props){
     //     super(props);
     //     this.state = {
@@ -66,14 +95,18 @@ class Article extends Component{
         console.warn("update article")
 
         const {isOpen,article,toggleOpen} = this.props;
-        // console.warn(article,"article")
+        const {choiceLanguage} = this.context;
+        // console.warn(this.context,"this.context article")
+        // console.warn(toggleOpen,"toggleOpen")
         if(!article) return null
         return(
           <section>
             <h3>{article.title}</h3>
-            <button onClick={toggleOpen}>{isOpen ? 'close' : 'open'}</button>
+            <button onClick={this.toggleOpen}>{isOpen ? ChangeWordsLanguage('close',choiceLanguage)
+              : ChangeWordsLanguage('open',choiceLanguage)}
+            </button>
             <button onClick={this.handleDelete}>
-              <ChangeWordsLanguage word = {'delete'}/>
+              {ChangeWordsLanguage('delete',choiceLanguage)}
             </button>
             {/*<button onClick={this.toggleOpen}>{isOpen ? 'close' : 'open'}</button>*/}
             <CSSTransitionGroup
@@ -97,15 +130,17 @@ class Article extends Component{
     // }
     getBody () {
         const {isOpen,article} = this.props;
-        if(article.loading) return <Loader/>
-        if(isOpen){
+        const {choiceLanguage} = this.context;
+        console.warn("isOpen",isOpen)
+        if(article.loading) return <Loader choiceLanguage = {choiceLanguage}/>
+        else if(isOpen){
             return(
                 <section>
                     {/*{this.article.text}*/}
                     {/*<CommentsList comments = {this.article.comments}/>  */}
                     {article.text}
                     <button onClick = {() => this.setState({updateIndex:this.state.updateIndex + 1})}>
-                      <ChangeWordsLanguage word = {'update'}/>
+                      {ChangeWordsLanguage('update',choiceLanguage)}
                     </button>
                     {/*<CommentsList articleId = {article.id} comments = {article.comments} ref = {this.setCommentsRef} key = {this.state.updateIndex}/>*/}
                     <CommentsList article = {article} ref = {this.setCommentsRef} key = {this.state.updateIndex}/>
@@ -119,8 +154,9 @@ class Article extends Component{
         console.log("---",findDOMNode(ref))
     }
     // toggleOpen = () => {
-    //     this.setState({isOpen:!this.state.isOpen});
-    //     console.log("SETSTATE",this.state.isOpen);
+    //     console.log("this.props.isOpen",this.props.isOpen)
+    //     this.setState({isOpen:!this.props.isOpen});
+    //     console.log("this.props.isOpen",this.props.isOpen)
     // }
 }
 

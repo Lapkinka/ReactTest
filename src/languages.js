@@ -23,6 +23,10 @@ export const languages = {
     "ru": "Выберите статью",
     "en": "Select Article"
   },
+  "open":{
+    "ru": "Открыть",
+    "en": "Open"
+  },
   "close":{
     "ru": "закрыть",
     "en": "close"

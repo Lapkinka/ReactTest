@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import ChangeWordsLanguage from './ChangeWordsLanguage'
+import {ChangeWordsLanguage} from './ChangeWordsLanguage'
 import {increment} from '../AC'
 
 class Counter extends Component{
@@ -9,12 +9,15 @@ class Counter extends Component{
         counter:PropTypes.number,
         increment:PropTypes.func.isRequired
     };
+    static contextTypes ={
+      choiceLanguage:PropTypes.string
+    }
     render(){
         return(
             <div>
                 <h2>{this.props.counter}</h2>
                 <button onClick={this.handleIncrement}>
-                  <ChangeWordsLanguage word = {'increment_me'}/>
+                  {ChangeWordsLanguage('increment_me',this.context.choiceLanguage)}
                 </button>
             </div>
         )

@@ -5,7 +5,7 @@ import Loader from '../Loader/loader'
 import {loadAllComments} from '../../AC'
 import {NavLink} from 'react-router-dom'
 import Comments from '../Comments'
-import ChangeWordsLanguage from '../ChangeWordsLanguage'
+import {ChangeWordsLanguage} from '../ChangeWordsLanguage'
 import './style.css'
 
 class ShowPageComment extends PureComponent {
@@ -20,6 +20,9 @@ class ShowPageComment extends PureComponent {
     //     loading: PropTypes.bool
     //   }),
     // };
+    static contextTypes ={
+      choiceLanguage:PropTypes.string
+    }
     componentWillMount(){
       this.props.loadAllComments(this.props.page)
     }
@@ -82,8 +85,7 @@ class ShowPageComment extends PureComponent {
             return(
               <div key={i}>
                 <NavLink activeStyle = {{color:"red"}} to = {`/comments/${i+1}`}>
-                  <ChangeWordsLanguage word = {'page'} symbol = {':'}/>
-                  {i+1}
+                  <h2>{ChangeWordsLanguage('page',this.context.choiceLanguage)}:{i+1}</h2>
                 </NavLink>
               </div>)
           })}
