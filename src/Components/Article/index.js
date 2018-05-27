@@ -30,9 +30,9 @@ class Article extends Component{
     state = {
         updateIndex: 0
     };
-    componentWillMount(){
-      this.props.loadArt(this.props.id)
-    }
+    // componentWillMount(){
+    //   this.props.loadArt(this.props.id)
+    // }
     // componentWillReceiveProps({id,loadArt}){
     //   loadArt(id)
     // }
@@ -63,13 +63,13 @@ class Article extends Component{
     //
     // }
 
-    // componentDidMount(){
-    //     const {loadArt,article,id} = this.props
-    //     // if(isOpen) loadArt(article.id)
-    //     // if(!this.props.isOpen && isOpen && !article.text && !article.loading) loadArt(article.id)
-    //     if(!article || (!article.text && !article.loading)) loadArt(id)
-    //
-    // }
+    componentDidMount(){
+        const {loadArt,article,id} = this.props
+        // if(isOpen) loadArt(article.id)
+        // if(!this.props.isOpen && isOpen && !article.text && !article.loading) loadArt(article.id)
+        if(!article || (!article.text && !article.loading)) loadArt(id)
+
+    }
     // constructor(props){
     //     super(props);
     //     this.state = {

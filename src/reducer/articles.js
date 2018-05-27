@@ -55,7 +55,7 @@ export default (articlesState = defaultState,action) =>{
             // return arrToMap(response,articleRecord)
           console.log(articlesState.entities,"articlesState.entities")
             return articlesState
-                .set('entities', arrToMap(response,ArticleRecord))
+                .update('entities', entities => arrToMap(response,ArticleRecord).merge(entities))
                 .set('loading', false)
                 .set('loaded', true)
         }
