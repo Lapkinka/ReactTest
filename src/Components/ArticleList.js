@@ -29,18 +29,18 @@ class ArticleList extends Component{
     static contextTypes = {
         choiceLanguage:PropTypes.string
     }
-    componentWillMount(){
-        this.props.loadArticles()
-    }
+    // componentWillMount(){
+    //     this.props.loadArticles()
+    // }
     // componentWillReceiveProps({loadArticles}){
     //   loadArticles()
     // }
 
-    // componentDidMount(){
-    //     const {loading,loaded,loadArticles} = this.props
-    //     // if (!loading || !loaded) loadArticles()
-    //     if (!loading && !loaded) loadArticles()
-    // }
+    componentDidMount(){
+        const {loading,loaded,loadArticles} = this.props
+        // if (!loading || !loaded) loadArticles()
+        if (!loading && !loaded) loadArticles()
+    }
     // state = {
     //     openArticleId : null
     // };
